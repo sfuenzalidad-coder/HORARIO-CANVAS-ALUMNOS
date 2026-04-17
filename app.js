@@ -20,7 +20,7 @@ const DAY_COLUMN_INDEX = {
   viernes: 13
 };
 
-const EXCEL_DOWNLOAD_URL = 'https://docs.google.com/spreadsheets/d/17BdsECz968LHMTi9yfwSOCwicxfdCw6Mien2P4Rd_q0/export?format=xlsx';
+const EXCEL_DOWNLOAD_URL = 'https://script.google.com/macros/s/AKfycbwNuJ2e1SEvwXr36BDDDzXyEQAD9zL1ScroXmLZq4u-oN58m4XRYfl1YsVWEUfq51KR/exec';
 
 let STATIC_CONFIG = null;
 let STATIC_DATA = null;

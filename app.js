@@ -762,7 +762,7 @@ function applyConflictHighlights() {
 const HORARIO_ONLY_DOWNLOAD_URL = 'https://script.google.com/macros/s/AKfycbwNuJ2e1SEvwXr36BDDDzXyEQAD9zL1ScroXmLZq4u-oN58m4XRYfl1YsVWEUfq51KR/exec';
 
 function descargarExcelOriginal() {
-  if (!HORARIO_ONLY_DOWNLOAD_URL || HORARIO_ONLY_DOWNLOAD_URL.includes('https://script.google.com/macros/s/AKfycbwNuJ2e1SEvwXr36BDDDzXyEQAD9zL1ScroXmLZq4u-oN58m4XRYfl1YsVWEUfq51KR/exec')) {
+  if (!HORARIO_ONLY_DOWNLOAD_URL || HORARIO_ONLY_DOWNLOAD_URL.includes('PEGA AQUI EL LINK')) {
     showModal('Error', 'Debes definir HORARIO_ONLY_DOWNLOAD_URL en app.js con la URL del Web App de Apps Script.');
     return;
   }

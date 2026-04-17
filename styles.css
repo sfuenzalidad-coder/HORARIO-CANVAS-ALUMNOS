@@ -319,7 +319,7 @@ button.action-btn {
 }
 
 .table-wrap {
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: auto;
   max-height: 76vh;
   border: 1px solid #e5e7eb;
@@ -330,18 +330,18 @@ button.action-btn {
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: auto;
-  min-width: 1400px;
+  table-layout: fixed;
+  min-width: 100%;
 }
 
 th, td {
   border-bottom: 1px solid #e5e7eb;
   border-right: 1px solid #f1f5f9;
-  padding: 6px 8px;
+  padding: 5px 6px;
   text-align: left;
   vertical-align: top;
-  font-size: 10px;
-  line-height: 1.2;
+  font-size: 9px;
+  line-height: 1.15;
   white-space: normal;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -354,25 +354,27 @@ th {
   z-index: 5;
 }
 
-th:nth-child(1), td:nth-child(1) { min-width: 120px; }  /* AREA */
-th:nth-child(2), td:nth-child(2) { min-width: 140px; }  /* PLAN DE ESTUDIO */
-th:nth-child(3), td:nth-child(3) { min-width: 70px; }   /* NRC */
-th:nth-child(4), td:nth-child(4) { min-width: 100px; }
-th:nth-child(5), td:nth-child(5) { min-width: 60px; }
-th:nth-child(6), td:nth-child(6) { min-width: 70px; }
-th:nth-child(7), td:nth-child(7) { min-width: 70px; }
-th:nth-child(8), td:nth-child(8) { min-width: 60px; }
-th:nth-child(9), td:nth-child(9) { min-width: 180px; }
+/* Distribución ajustada para caber en pantalla sin scroll horizontal,
+   pero dejando más espacio a las columnas que más texto contienen */
+th:nth-child(1), td:nth-child(1) { width: 7%; }    /* AREA */
+th:nth-child(2), td:nth-child(2) { width: 8%; }    /* PLAN DE ESTUDIO */
+th:nth-child(3), td:nth-child(3) { width: 4.5%; }  /* NRC */
+th:nth-child(4), td:nth-child(4) { width: 5.5%; }  /* CONECTOR */
+th:nth-child(5), td:nth-child(5) { width: 3.5%; }  /* LC */
+th:nth-child(6), td:nth-child(6) { width: 4%; }    /* MATERIA */
+th:nth-child(7), td:nth-child(7) { width: 4%; }    /* CURSO */
+th:nth-child(8), td:nth-child(8) { width: 3%; }    /* SECC */
+th:nth-child(9), td:nth-child(9) { width: 11%; }   /* TITULO */
 th:nth-child(10), td:nth-child(10),
 th:nth-child(11), td:nth-child(11),
 th:nth-child(12), td:nth-child(12),
 th:nth-child(13), td:nth-child(13),
-th:nth-child(14), td:nth-child(14) { min-width: 95px; }
-th:nth-child(15), td:nth-child(15),
-th:nth-child(16), td:nth-child(16) { min-width: 85px; }
-th:nth-child(17), td:nth-child(17) { min-width: 80px; }
-th:nth-child(18), td:nth-child(18) { min-width: 110px; }
-th:nth-child(19), td:nth-child(19) { min-width: 180px; }
+th:nth-child(14), td:nth-child(14) { width: 6.5%; } /* L-V */
+th:nth-child(15), td:nth-child(15) { width: 5.5%; } /* INICIO */
+th:nth-child(16), td:nth-child(16) { width: 5.5%; } /* FIN */
+th:nth-child(17), td:nth-child(17) { width: 4.5%; } /* SALA */
+th:nth-child(18), td:nth-child(18) { width: 6.5%; } /* TIPO */
+th:nth-child(19), td:nth-child(19) { width: 9%; }   /* PROFESOR */
 
 .loading {
   display: none;
@@ -431,4 +433,12 @@ th:nth-child(19), td:nth-child(19) { min-width: 180px; }
 @media (max-width: 768px) {
   h1 { font-size: 22px; }
   .entry-buttons { grid-template-columns: 1fr; }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 1200px;
+  }
 }

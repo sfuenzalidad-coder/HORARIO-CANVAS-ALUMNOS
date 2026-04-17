@@ -20,7 +20,7 @@ const DAY_COLUMN_INDEX = {
   viernes: 13
 };
 
-const EXCEL_DOWNLOAD_URL = 'https://script.google.com/macros/s/AKfycbwNuJ2e1SEvwXr36BDDDzXyEQAD9zL1ScroXmLZq4u-oN58m4XRYfl1YsVWEUfq51KR/exec';
+const EXCEL_DOWNLOAD_URL = 'https://docs.google.com/spreadsheets/d/17BdsECz968LHMTi9yfwSOCwicxfdCw6Mien2P4Rd_q0/export?format=xlsx';
 
 let STATIC_CONFIG = null;
 let STATIC_DATA = null;
@@ -759,10 +759,10 @@ function applyConflictHighlights() {
   return foundConflict;
 }
 
-const HORARIO_ONLY_DOWNLOAD_URL = 'https://script.google.com/macros/s/AKfycbwNuJ2e1SEvwXr36BDDDzXyEQAD9zL1ScroXmLZq4u-oN58m4XRYfl1YsVWEUfq51KR/exec';
+const HORARIO_ONLY_DOWNLOAD_URL = 'https://script.google.com/macros/s/AKfycbwNuJ2e1SEvwXr36BDDDzXyEQAD9zL1ScroXmLZq4u-oN58m4XRYfl1YsVWEUfq51KR/exec?action=downloadHorarioExcel';
 
 function descargarExcelOriginal() {
-  if (!HORARIO_ONLY_DOWNLOAD_URL || HORARIO_ONLY_DOWNLOAD_URL.includes('PEGA AQUI EL LINK')) {
+  if (!HORARIO_ONLY_DOWNLOAD_URL || HORARIO_ONLY_DOWNLOAD_URL.includes('https://script.google.com/macros/s/AKfycbwNuJ2e1SEvwXr36BDDDzXyEQAD9zL1ScroXmLZq4u-oN58m4XRYfl1YsVWEUfq51KR/exec')) {
     showModal('Error', 'Debes definir HORARIO_ONLY_DOWNLOAD_URL en app.js con la URL del Web App de Apps Script.');
     return;
   }

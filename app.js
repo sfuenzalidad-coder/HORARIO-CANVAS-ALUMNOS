@@ -20,9 +20,7 @@ const DAY_COLUMN_INDEX = {
   viernes: 13
 };
 
-const EXCEL_DOWNLOAD_URL = 'PUT_PUBLIC_XLSX_EXPORT_URL_HERE';
-// Example:
-// https://docs.google.com/spreadsheets/d/FILE_ID/export?format=xlsx
+const EXCEL_DOWNLOAD_URL = 'https://docs.google.com/spreadsheets/d/17BdsECz968LHMTi9yfwSOCwicxfdCw6Mien2P4Rd_q0/export?format=xlsx';
 
 let STATIC_CONFIG = null;
 let STATIC_DATA = null;
@@ -762,10 +760,6 @@ function applyConflictHighlights() {
 }
 
 function descargarExcelOriginal() {
-  if (!EXCEL_DOWNLOAD_URL || EXCEL_DOWNLOAD_URL === 'PUT_PUBLIC_XLSX_EXPORT_URL_HERE') {
-    showModal('Error', 'Debes definir EXCEL_DOWNLOAD_URL en app.js.');
-    return;
-  }
   window.open(EXCEL_DOWNLOAD_URL, '_blank');
 }
 

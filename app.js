@@ -20,8 +20,6 @@ const DAY_COLUMN_INDEX = {
   viernes: 13
 };
 
-const EXCEL_DOWNLOAD_URL = 'https://docs.google.com/spreadsheets/d/17BdsECz968LHMTi9yfwSOCwicxfdCw6Mien2P4Rd_q0/export?format=xlsx';
-
 let STATIC_CONFIG = null;
 let STATIC_DATA = null;
 let STATIC_PROFESORES = null;
@@ -759,10 +757,6 @@ function applyConflictHighlights() {
   return foundConflict;
 }
 
-function descargarExcelOriginal() {
-  window.open(EXCEL_DOWNLOAD_URL, '_blank');
-}
-
 function syncScrollWidth() {
   const table = document.getElementById('mainTable');
   const topScrollInner = document.getElementById('topScrollInner');
@@ -814,6 +808,93 @@ function initializeApp() {
   updateMetaCount();
   renderLegend(data.legendRows || []);
   syncScrollWidth();
+}
+
+/* ============================
+   Excel export: ONLY HORARIO
+   ============================ */
+
+function getHorarioSheetMatrixForExport() {
+  const headers = STATIC_DATA?.headers || [];
+  const legendRows = STATIC_DATA?.legendRows || [];
+  const rows = rawQueryRows && rawQueryRows.length ? rawQueryRows : (STATIC_DATA?.rows || []);
+
+  const matrix = [];
+
+  legendRows.forEach(row => {
+    matrix.push((row.cells || []).map(cell => cell?.value ?? ''));
+  });
+
+  if (legendRows.length && headers.length) {
+    while (matrix.length < 14) matrix.push([]);
+  }
+
+  if (headers.length) {
+    matrix.push(headers.map(v => v ?? ''));
+  }
+
+  rows.forEach(row => {
+    matrix.push((row.cells || []).map(cell => cell?.value ?? ''));
+  });
+
+  return matrix;
+}
+
+function ensureSheetJSLibrary_() {
+  return new Promise((resolve, reject) => {
+    if (window.XLSX) {
+      resolve(window.XLSX);
+      return;
+    }
+
+    const existing = document.querySelector('script[data-xlsx-loader="1"]');
+    if (existing) {
+      existing.addEventListener('load', () => resolve(window.XLSX));
+      existing.addEventListener('error', () => reject(new Error('No se pudo cargar la librería XLSX.')));
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    script.async = true;
+    script.dataset.xlsxLoader = '1';
+    script.onload = () => {
+      if (window.XLSX) resolve(window.XLSX);
+      else reject(new Error('La librería XLSX no quedó disponible.'));
+    };
+    script.onerror = () => reject(new Error('No se pudo cargar la librería XLSX.'));
+    document.head.appendChild(script);
+  });
+}
+
+async function descargarExcelOriginal() {
+  try {
+    setLoading(true);
+
+    const XLSX = await ensureSheetJSLibrary_();
+    const matrix = getHorarioSheetMatrixForExport();
+
+    if (!matrix.length) {
+      throw new Error('No hay datos para exportar.');
+    }
+
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet(matrix);
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'HORARIO');
+
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const fileName = `HORARIO_${yyyy}${mm}${dd}.xlsx`;
+
+    XLSX.writeFile(workbook, fileName);
+    setLoading(false);
+  } catch (err) {
+    setLoading(false);
+    showModal('Error', 'No se pudo generar el Excel de HORARIO: ' + err.message);
+  }
 }
 
 window.addEventListener('load', async () => {

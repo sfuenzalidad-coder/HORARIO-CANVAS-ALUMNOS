@@ -759,18 +759,15 @@ function applyConflictHighlights() {
   return foundConflict;
 }
 
-const HORARIO_ONLY_DOWNLOAD_URL = 'https://script.google.com/macros/s/AKfycbwNuJ2e1SEvwXr36BDDDzXyEQAD9zL1ScroXmLZq4u-oN58m4XRYfl1YsVWEUfq51KR/exec?action=downloadHorarioExcel';
-
 function descargarExcelOriginal() {
-  if (
-    !HORARIO_ONLY_DOWNLOAD_URL ||
-    HORARIO_ONLY_DOWNLOAD_URL.includes('PASTE_YOUR_APPS_SCRIPT_WEBAPP_EXEC_URL_HERE')
-  ) {
-    showModal('Error', 'Debes definir HORARIO_ONLY_DOWNLOAD_URL en app.js con la URL del Web App de Apps Script.');
+  const url = STATIC_CONFIG?.horarioOnlyDownloadUrl || '';
+
+  if (!url) {
+    showModal('Error', 'No se encontró la URL de descarga de HORARIO en config.json.');
     return;
   }
 
-  window.open(HORARIO_ONLY_DOWNLOAD_URL, '_blank');
+  window.open(url, '_blank');
 }
 
 function syncScrollWidth() {
